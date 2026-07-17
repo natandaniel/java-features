@@ -22,20 +22,24 @@ Les tests JUnit miroitent les solutions sous `src/test/java/.../solutions/` et v
 
 ### m01_fondamentaux — Types, valeurs et variables (Java 1, annotations Java 7/8 ponctuelles)
 
-| Ordre | Concept | Contenu | Statut |
-|-------|---------|---------|--------|
-| c01 | types_primitifs | les 8 types, tailles, valeurs par défaut, représentation binaire | ✅ |
-| c02 | litteraux | notations déc/hex/oct/`0b`, underscores (Java 7), suffixes, char | ✅ |
-| c03 | operateurs | arithmétiques · bit-à-bit · décalages | ✅ |
-| c04 | debordement | overflow silencieux, pièges, arithmétique sûre, BigInteger | ✅ |
-| c05 | conversions | widening, narrowing, promotion en expression | ✅ |
-| c06 | flottants | IEEE 754, précision, Infinity, NaN | ✅ |
-| c07 | references | null, `==` vs `equals`, String pool | ✅ |
-| c08 | variables | 6 kinds of variables, `final`, passage par valeur | ✅ |
-| c09 | modele_memoire | pile/tas/metaspace, allocation, durée de vie, GC, fuites | 🟡 notes seules |
-| c10 | execution | source/bytecode/processus, lancement (fork+exec), mémoire virtuelle, JVM comme processus, isolation, copy-on-write, processus vs threads | 🟡 notes seules |
+Ordre pensé en **quatre blocs** pour respecter les prérequis (chaque concept ne dépend que de ce qui précède) :
+
+| Bloc | Ordre | Concept | Contenu | Statut |
+|------|-------|---------|---------|--------|
+| **A · Système de types** | c01 | types_primitifs | les 8 types, tailles, valeurs par défaut | ✅ |
+| | c02 | representation_binaire | binaire, complément à deux (théorie + exo arithmétique) | ✅ |
+| | c03 | litteraux | notations déc/hex/oct/`0b`, underscores (Java 7), suffixes, char (notation) | ✅ |
+| **B · Calcul sur les entiers** | c04 | operateurs | `c01_arithmetiques` · `c02_bit_et_decalages` | ✅ |
+| | c05 | debordement | overflow silencieux, pièges, arithmétique sûre, BigInteger | ✅ |
+| **C · Flottants & conversions** | c06 | flottants | IEEE 754, précision, Infinity, NaN | ✅ |
+| | c07 | conversions | widening, narrowing, promotion (unifiée ici) | ✅ |
+| **D · Références, variables & mémoire** | c08 | references_variables | null, `==` vs `equals`, pool, 6 kinds, `final`, passage par valeur | ✅ |
+| | c09 | modele_memoire | pile/tas/metaspace, allocation, durée de vie, GC, fuites | 🟡 notes seules |
+| | c10 | execution | source/bytecode/processus, lancement (fork+exec), mémoire virtuelle, JVM comme processus, isolation, copy-on-write, processus vs threads | 🟡 notes seules |
 
 > 🟡 = `NOTES.md` rédigée ; leçon/exercices/solutions/tests à produire (`java-mentor`).
+
+**Note d'organisation** — La représentation binaire est un concept à part entière (c02), *avant* les opérateurs, car elle est le prérequis des opérations bit à bit/décalages, du débordement et des conversions. Bit-à-bit et décalages sont fusionnés (`c02_bit_et_decalages`) car mutuellement dépendants. Les flottants (c06) précèdent les conversions (c07), dont le widening met en jeu `float`/`double`. La promotion de type est traitée en un seul endroit (c07). Références et variables sont fusionnés (c08) : modèle puis conséquences.
 
 ### Modules à venir (ordre indicatif)
 

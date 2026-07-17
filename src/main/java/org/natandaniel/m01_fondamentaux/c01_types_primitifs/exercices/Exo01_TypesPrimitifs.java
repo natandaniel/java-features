@@ -14,8 +14,16 @@ class Exo01_TypesPrimitifs {
      * Indice : les classes enveloppes exposent une constante SIZE.
      */
     static int tailleEnBits(String type) {
-        // TODO
-        throw new UnsupportedOperationException("À implémenter");
+      return switch (type) {
+        case "byte" -> Byte.SIZE;
+        case "short" -> Short.SIZE;
+        case "int" -> Integer.SIZE;
+        case "long" -> Long.SIZE;
+        case "char" -> Character.SIZE;
+        case "float" -> Float.SIZE;
+        case "double" -> Double.SIZE;
+        default -> throw new IllegalArgumentException("Type inconnu : " + type);
+      };
     }
 
     /**

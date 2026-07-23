@@ -32,7 +32,13 @@ class Exo01_TypesPrimitifs {
      * Indice : les classes enveloppes exposent MAX_VALUE.
      */
     static long valeurMaximale(String type) {
-        // TODO
-        throw new UnsupportedOperationException("À implémenter");
+      return switch (type) {
+        case "byte" -> Byte.MAX_VALUE;
+        case "short" -> Short.MAX_VALUE;
+        case "int" -> Integer.MAX_VALUE;
+        case "long" -> Long.MAX_VALUE;
+        case "char" -> Character.MAX_VALUE;
+        default -> throw new IllegalArgumentException("Type inconnu : " + type);
+      };
     }
 }

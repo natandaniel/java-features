@@ -47,6 +47,7 @@ C'est la base du stockage compact de drapeaux booléens dans un seul entier (jus
 
 - **Overflow à gauche** : un bit non nul qui « sort » est perdu (`<<` peut changer le signe).
 - **`>>` n'est pas exactement `/2`** sur les négatifs impairs : il arrondit vers −∞ (`-1 >> 1 = -1`, alors que `-1 / 2 = 0`).
+- **`&` et `|` sur des `boolean`** : ce sont aussi des opérateurs logiques valides (JLS §15.22.2), mais **sans court-circuit** — les deux opérandes sont toujours évalués. Ne pas les confondre avec `&&`/`||`, qui court-circuitent.
 
 ---
 

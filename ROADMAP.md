@@ -34,7 +34,7 @@ Ordre pensé en **quatre blocs** pour respecter les prérequis (chaque concept n
 | **C · Flottants & conversions** | c06 | flottants | IEEE 754, précision, Infinity, NaN | ✅ |
 | | c07 | conversions | widening, narrowing, promotion (unifiée ici) | ✅ |
 | **D · Références, variables & mémoire** | c08 | references_variables | null, `==` vs `equals`, pool, 6 kinds, `final`, passage par valeur | ✅ |
-| | c09 | modele_memoire | pile/tas/metaspace, allocation, durée de vie, GC, fuites | 🟡 notes seules |
+| | c09 | modele_memoire | pile/tas/metaspace, aliasing, allocation, durée de vie, GC, fuites | ✅ |
 | | c10 | execution | source/bytecode/processus, lancement (fork+exec), mémoire virtuelle, JVM comme processus, isolation, copy-on-write, processus vs threads | 🟡 notes seules |
 
 > 🟡 = `NOTES.md` rédigée ; leçon/exercices/solutions/tests à produire (`java-mentor`).

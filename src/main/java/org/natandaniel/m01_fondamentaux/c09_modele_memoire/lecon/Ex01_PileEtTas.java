@@ -26,7 +26,8 @@ class Ex01_PileEtTas {
                 + "   → une case par objet");
 
         System.out.println("\n=== METASPACE : les champs static ===");
-        System.out.println("total vu par a : " + total + "   (une seule case pour toute la classe)");
+        System.out.println("total (sans passer par un objet) : " + total
+                + "   (une seule case pour toute la classe)");
         total = 999;
         System.out.println("total après modification : " + total + "   → partagé par toutes les instances");
 

@@ -1,8 +1,8 @@
 # Modèle mémoire
 
 > Module `m01_fondamentaux / c09_modele_memoire`
-> Leçon / exercices / solutions / tests : **à produire** (`java-mentor`).
-> Voir aussi : [`c01_types_primitifs`](../c01_types_primitifs/NOTES.md), [`c07_references`](../c07_references/NOTES.md), [`c08_variables`](../c08_variables/NOTES.md), [`c10_execution`](../c10_execution/NOTES.md) (le processus **autour** de cette mémoire).
+> Leçon : `lecon/Ex01` → `Ex06` · Entraînement : `exercices/` + `solutions/` (Exo01 à Exo03).
+> Voir aussi : [`c01_types_primitifs`](../c01_types_primitifs/NOTES.md), [`c08_references_variables`](../c08_references_variables/NOTES.md), [`c10_execution`](../c10_execution/NOTES.md) (le processus **autour** de cette mémoire).
 
 La JVM range les données dans deux zones distinctes selon le type de la variable. Un **primitif** stocke sa valeur directement dans la variable. Une **référence** stocke l'adresse d'un objet alloué sur le tas. Le programmeur n'alloue jamais explicitement la mémoire (`new` suffit) et ne la libère jamais : le *garbage collector* s'en charge.
 
@@ -16,7 +16,9 @@ La JVM range les données dans deux zones distinctes selon le type de la variabl
 
 - Une pile **par thread** ; chaque thread ne voit que ses frames. Sa taille est bornée (`-Xss`).
 - Un seul tas, partagé. Sa taille est bornée (`-Xmx`).
-- Le metaspace remplace la *PermGen* depuis Java 8.
+- Le metaspace remplace la *PermGen* — `@since Java 8`.
+
+→ Démo : `lecon/Ex01_PileEtTas`.
 
 ## Pile : les frames
 
@@ -26,6 +28,10 @@ Chaque appel de méthode empile un *frame* (JVMS §2.6) qui contient :
 - une référence vers le *pool de constantes* de la classe.
 
 Le frame est créé à l'appel, détruit au retour — coût O(1), pas de GC. Une récursion trop profonde épuise la pile → `StackOverflowError`.
+
+Java n'élimine **pas** la récursion terminale : même un appel en position de retour garde son frame jusqu'à la remontée. Une somme récursive de 1 à *n* consomme donc *n* frames, là où sa version itérative en consomme un seul. La profondeur maximale atteignable dépend de `-Xss`, de la taille des frames et du JIT — elle n'est jamais une constante sur laquelle s'appuyer.
+
+→ Démo : `lecon/Ex02_FramesEtPile` · Exercice : `Exo02_Recursion`.
 
 ## Primitif vs référence
 
@@ -48,7 +54,11 @@ String s = new String("ab"); // le slot de s contient une adresse → objet sur 
 | Champ de classe (`static`) | metaspace (zone de la classe) |
 | Composant de tableau | tas (le tableau est un objet) |
 
-Une variable locale de type référence vit sur la **pile**, mais l'**objet** qu'elle désigne vit sur le **tas**. Les six kinds → [`c08_variables`](../c08_variables/NOTES.md).
+Une variable locale de type référence vit sur la **pile**, mais l'**objet** qu'elle désigne vit sur le **tas**. Les six kinds → [`c08_references_variables`](../c08_references_variables/NOTES.md).
+
+Corollaire souvent mal vu : un champ `static` a **une seule case pour toute la classe**, un champ d'instance **une case par objet**. Un cache `static` vit donc aussi longtemps que la classe est chargée — c'est ce qui en fait le vecteur de fuite le plus courant.
+
+→ Démo : `lecon/Ex04_StaticEtInstance`.
 
 ## Schéma mémoire
 
@@ -63,6 +73,31 @@ Thread stack                          Heap
                                      └───────────────────────────────┘
 ```
 
+## Aliasing : copie superficielle vs copie profonde
+
+Affecter une variable de type référence copie une **adresse**, jamais l'objet. Deux variables qui désignent le même objet en sont des **alias** : muter par l'une se voit par l'autre.
+
+```java
+int[] original = {1, 2, 3};
+int[] alias = original;      // copie l'adresse (4 ou 8 octets), pas les 3 entiers
+alias[0] = 99;               // original[0] vaut 99 : un seul objet sur le tas
+original == alias            // true — identité, pas contenu
+```
+
+La distinction devient visible sur un tableau 2D, qui est un **tableau de références** vers des tableaux 1D :
+
+| Copie | Ce qui est alloué | Effet d'une mutation `copie[i][j] = x` |
+|-------|-------------------|----------------------------------------|
+| **superficielle** (`source.clone()`) | un nouveau tableau externe ; les lignes sont partagées | la source change aussi |
+| **profonde** (`ligne.clone()` pour chaque ligne) | un nouveau tableau externe **et** une nouvelle ligne par ligne | la source est intacte |
+
+- `clone()` sur un tableau est toujours **superficiel** : il ne descend jamais dans les éléments. Idem pour `Arrays.copyOf`, `System.arraycopy`, `List.copyOf`.
+- Il n'y a pas de copie profonde générique en Java : la profondeur voulue est un choix de conception, à écrire explicitement.
+- Comparer le **contenu** demande `Arrays.equals` (1 niveau) ou `Arrays.deepEquals` (imbriqué) ; `==` ne répond qu'à la question de l'identité.
+- Les objets **immuables** (`String`, `Integer`, `LocalDate`) rendent la question sans objet : partager un objet qu'on ne peut pas muter est sans risque. C'est l'argument mémoire principal en faveur de l'immuabilité.
+
+→ Démo : `lecon/Ex03_Aliasing` · Exercice : `Exo01_Copies`.
+
 ## Allocation et durée de vie
 
 - `new` alloue sur le tas et renvoie une référence. L'objet vit tant qu'il reste **accessible** (*reachable*) depuis une racine GC (variables de pile actives, champs `static`, références JNI).
@@ -75,16 +110,24 @@ Thread stack                          Heap
 - **Générationnel** : les objets naissent dans la *young generation* (collectée souvent, *minor GC*) ; les survivants sont promus en *old generation* (*major/full GC*, plus coûteux). Hypothèse : la plupart des objets meurent jeunes.
 - Le GC parcourt le graphe d'accessibilité depuis les racines, marque le vivant, récupère le reste (*mark-sweep*), puis compacte souvent le tas (les références déplacées sont mises à jour).
 - `System.gc()` est une **suggestion**, pas un ordre.
-- `finalize()` est déprécié (Java 9) ; pour libérer une ressource, utiliser `try-with-resources` / `AutoCloseable`, jamais le GC.
+- `finalize()` est **déprécié** — `@since Java 9` ; pour libérer une ressource, utiliser `try-with-resources` / `AutoCloseable` (`@since Java 7`), ou `Cleaner` (`@since Java 9`) — jamais le GC.
+- `WeakReference` (`@since Java 1.2`) permet d'**observer** l'accessibilité sans la maintenir : elle ne retient pas son référent. Utile pour instrumenter, jamais pour synchroniser — le moment de la collecte reste imprévisible.
+
+Ce qui est **garanti** : un objet inaccessible ne sera jamais ressuscité. Ce qui ne l'est **pas** : le moment de la collecte, ni même qu'elle ait lieu avant la fin du programme.
+
+→ Démo : `lecon/Ex05_Accessibilite` (non testable en JUnit : `System.gc()` n'est pas déterministe).
 
 ## Pièges
 
 - **Fuite mémoire en Java** : un objet inutile mais toujours **accessible** (jamais retiré d'une `static` Map, d'une collection, d'un cache, d'un listener) n'est jamais collecté → `OutOfMemoryError: Java heap space`. Le GC ne récupère que l'inaccessible.
 - **`StackOverflowError` vs `OutOfMemoryError`** : le premier vient d'une pile saturée (récursion sans fin) ; le second d'un tas saturé. Ne pas les confondre.
-- **`final` ne fige que la variable** : sur une référence, l'objet pointé reste modifiable (`final List` → `add` autorisé). Voir [`c08_variables`](../c08_variables/NOTES.md).
-- **`==` sur des références teste l'identité** (même objet en mémoire), pas le contenu → utiliser `.equals()`. Voir [`c07_references`](../c07_references/NOTES.md).
-- **Passage par valeur toujours** : réaffecter un paramètre référence dans une méthode n'affecte pas l'appelant ; modifier l'objet pointé, si. Voir [`c08_variables`](../c08_variables/NOTES.md).
+- **`final` ne fige que la variable** : sur une référence, l'objet pointé reste modifiable (`final List` → `add` autorisé). Voir [`c08_references_variables`](../c08_references_variables/NOTES.md).
+- **`==` sur des références teste l'identité** (même objet en mémoire), pas le contenu → utiliser `.equals()`. Voir [`c08_references_variables`](../c08_references_variables/NOTES.md).
+- **Passage par valeur toujours** : réaffecter un paramètre référence dans une méthode n'affecte pas l'appelant ; modifier l'objet pointé, si. Voir [`c08_references_variables`](../c08_references_variables/NOTES.md).
 - **`null` ne libère pas** : utile seulement pour rompre l'accessibilité d'un objet à longue vie ; inutile sur une locale en fin de méthode (le frame disparaît seul).
+- **`clone()` cru profond** : sur un tableau ou une collection, il ne copie que le premier niveau. Les éléments restent partagés.
+
+→ Démo : `lecon/Ex06_FuiteMemoire` · Exercice : `Exo03_Accessibilite`.
 
 ## Exemple
 

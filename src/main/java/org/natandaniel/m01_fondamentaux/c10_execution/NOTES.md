@@ -1,7 +1,7 @@
 # Exécution d'un programme Java
 
 > Module `m01_fondamentaux / c10_execution`
-> Leçon / exercices / solutions / tests : **à produire** (`java-mentor`).
+> Leçon : `lecon/Ex01` → `Ex06` · Entraînement : `exercices/Exo01` → `Exo03` (corrigés dans `solutions/`).
 > Voir aussi : [`c09_modele_memoire`](../c09_modele_memoire/NOTES.md) (mémoire **interne** de la JVM).
 
 Un programme Java existe sous trois formes successives : un fichier source (`.java`, texte inerte), du bytecode (`.class`, produit par `javac`, inerte aussi), et un **processus** — une instance vivante chargée en mémoire par le système d'exploitation. Cette fiche décrit le passage du fichier au processus, au niveau OS. Elle se situe **au-dessus** de `c09_modele_memoire` : ici on décrit le processus qui contient le heap, là-bas le heap lui-même.
@@ -89,6 +89,31 @@ Lancer `java Main` deux fois crée **deux processus** (deux PID), avec **deux he
 - **`-Xmx` = mémoire totale du processus** : non. C'est la borne du seul heap Java. La mémoire du processus (vue par `top`/`ps`, soit le *RSS*) inclut metaspace, piles, buffers natifs, code JIT — souvent bien plus que `-Xmx`.
 - **Deux exécutions « partagent les variables statiques »** : non. Chaque processus a son metaspace et ses `static`. Le partage de `static` n'existe qu'**entre threads d'un même processus**, jamais entre processus.
 - **Mettre `null` ou fermer le programme « libère » pour les autres** : la fin d'un processus libère **sa** mémoire. Elle n'affecte ni le fichier `.class` sur disque, ni les autres processus.
+
+## Observer soi-même
+
+Rien de tout cela n'est théorique : le processus est mesurable depuis Java et depuis le shell.
+
+| Ce qu'on veut voir | Depuis Java | Depuis le shell |
+|---|---|---|
+| PID, commande, parent, démarrage | `ProcessHandle.current().info()` *(Java 9)* | `ps -o pid,ppid,command -p <PID>` |
+| Heap seul (≈ `-Xmx`) | `Runtime.getRuntime().maxMemory()` | `jcmd <PID> GC.heap_info` |
+| Mémoire réelle du processus (RSS) | — (hors de portée du heap) | `ps -o rss= -p <PID>` |
+| Classes chargées (metaspace) | `ManagementFactory.getClassLoadingMXBean()` | `java -verbose:class …` |
+| JVM en cours sur la machine | — | `jps -lv` |
+
+Le test décisif du piège `-Xmx` : lancer avec `-Xmx64m`, puis comparer `maxMemory()` et le RSS.
+Le second est toujours nettement plus grand — c'est le sujet de `Exo02_EmpreinteMemoire`.
+
+## Entraînement
+
+Les mécanismes système ne se testent pas en méthode pure : les exercices les **modélisent**.
+
+| Exercice | Ce qu'il modélise |
+|---|---|
+| `Exo01_LigneDeCommande` | le tri que fait le launcher : options JVM / classe principale / `args` de `main()` |
+| `Exo02_EmpreinteMemoire` | `heap + metaspace + n × pile` : pourquoi le RSS dépasse toujours `-Xmx` |
+| `Exo03_PagesEtCopyOnWrite` | traduction adresse virtuelle → (page, offset), et le coût réel du partage après `fork` |
 
 ## Schéma mental
 

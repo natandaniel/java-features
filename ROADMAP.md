@@ -35,9 +35,9 @@ Ordre pensé en **quatre blocs** pour respecter les prérequis (chaque concept n
 | | c07 | conversions | widening, narrowing, promotion (unifiée ici) | ✅ |
 | **D · Références, variables & mémoire** | c08 | references_variables | null, `==` vs `equals`, pool, 6 kinds, `final`, passage par valeur | ✅ |
 | | c09 | modele_memoire | pile/tas/metaspace, aliasing, allocation, durée de vie, GC, fuites | ✅ |
-| | c10 | execution | source/bytecode/processus, lancement (fork+exec), mémoire virtuelle, JVM comme processus, isolation, copy-on-write, processus vs threads | 🟡 notes seules |
+| | c10 | execution | source/bytecode/processus, lancement (fork+exec), mémoire virtuelle, JVM comme processus, isolation, copy-on-write, processus vs threads | ✅ |
 
-> 🟡 = `NOTES.md` rédigée ; leçon/exercices/solutions/tests à produire (`java-mentor`).
+**`m01_fondamentaux` est complet** : les dix concepts ont leçon + exercices + solutions + tests + NOTES.
 
 **Note d'organisation** — La représentation binaire est un concept à part entière (c02), *avant* les opérateurs, car elle est le prérequis des opérations bit à bit/décalages, du débordement et des conversions. Bit-à-bit et décalages sont fusionnés (`c02_bit_et_decalages`) car mutuellement dépendants. Les flottants (c06) précèdent les conversions (c07), dont le widening met en jeu `float`/`double`. La promotion de type est traitée en un seul endroit (c07). Références et variables sont fusionnés (c08) : modèle puis conséquences.
 

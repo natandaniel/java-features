@@ -41,11 +41,23 @@ Ordre pensé en **quatre blocs** pour respecter les prérequis (chaque concept n
 
 **Note d'organisation** — La représentation binaire est un concept à part entière (c02), *avant* les opérateurs, car elle est le prérequis des opérations bit à bit/décalages, du débordement et des conversions. Bit-à-bit et décalages sont fusionnés (`c02_bit_et_decalages`) car mutuellement dépendants. Les flottants (c06) précèdent les conversions (c07), dont le widening met en jeu `float`/`double`. La promotion de type est traitée en un seul endroit (c07). Références et variables sont fusionnés (c08) : modèle puis conséquences.
 
+### m02_poo — Classes, objets et héritage (Java 1, annotations ponctuelles)
+
+| Ordre | Concept | Contenu | Statut |
+|-------|---------|---------|--------|
+| c01 | classes_objets | classe vs objet, constructeurs, `this`, `static` | ✅ |
+| c02 | encapsulation | champs privés/accesseurs, invariants, modificateurs d'accès | ✅ |
+| c03 | heritage | `extends`, superclasse implicite `Object`, transitivité, restrictions | ✅ |
+
+**Note d'organisation** — `classes_objets` et `encapsulation` précèdent `heritage` car ce sont
+ses prérequis directs (héritage suppose une classe déjà définie, avec un état à protéger).
+Override et polymorphisme, hors scope de `heritage`, restent à ajouter en concepts suivants du
+module (interfaces, énumérations, records à venir aussi).
+
 ### Modules à venir (ordre indicatif)
 
 | Module | Thème | Versions clés |
 |--------|-------|---------------|
-| m02_poo | classes, interfaces, héritage, énumérations, records | Java 1, 5 (enum), 16 (record) |
 | m03_generiques | génériques, wildcards, type erasure | Java 5 |
 | m04_collections | Collections Framework, itérateurs | Java 1.2, 5 (for-each) |
 | m05_fonctionnel | lambdas, Stream API, Optional | Java 8 |

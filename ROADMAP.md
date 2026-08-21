@@ -67,7 +67,7 @@ exactement le contenu du thème, sans concept orphelin ni item non couvert).
 | | c10 | execution | C · JVM et bytecode (partiel — pas un cours dédié au format bytecode) | source/bytecode/processus, lancement (fork+exec), mémoire virtuelle, JVM comme processus, isolation, copy-on-write, processus vs threads | 🔶 |
 | **E · Fondamentaux impératifs** (écart comblé 2026-08-21) | c11 | structures_controle | A · Structures de contrôle + A · Variables et portée (blocs/shadowing) | `if`/`else`, `switch` (statement), `for`/`while`/`do-while`, portée de bloc, `break`/`continue` | ✅ |
 | | c12 | tableaux_et_chaines | A · Tableaux et chaînes de caractères | tableaux (objets, taille fixe, covariance, `ArrayStoreException`) ; `String` (immutabilité, pool — renvoi c08, `StringBuilder`, comparaison `==`/`equals`) — **fusionné** (le thème liste les deux dans un seul item) | ✅ |
-| | c13 | methodes | A · Méthodes et structuration d'un programme | déclaration, paramètres/retour, résolution de surcharge (renvoi `m02_poo/c02_constructeurs`), varargs | ⬜ |
+| | c13 | methodes | A · Méthodes et structuration d'un programme | déclaration, paramètres/retour, résolution de surcharge (renvoi `m02_poo/c02_constructeurs`), varargs | ✅ |
 | **F · Modèle mémoire, complément** | c14 | chargement_classes | C · Chargement de classes | class loaders (bootstrap/platform/app), modèle de délégation, chargement dynamique (renvoi c10) | ⬜ |
 
 **Couverture exacte des thèmes A + C** : les 5 items de A (Syntaxe et types, Variables et portée,

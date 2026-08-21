@@ -57,3 +57,9 @@ polymorphisme (traité dans un concept ultérieur).
   référence vers un objet contenu — l'héritage viole l'encapsulation (la sous-classe dépend de
   détails d'implémentation de la superclasse) et n'est légitime que si la sous-classe est
   *vraiment* un sous-type de la superclasse (test du principe de substitution de Liskov).
+- **Invocation explicite de `super(...)`** (règles complètes, JLS §8.8.7.1) et **accès
+  `super.membre`** à un membre masqué/redéfini (§15.11.2) : différés à un concept dédié
+  (mot-clé `super`), pas encore au ROADMAP — même périmètre que `mot-cle-super` côté
+  `ocp-curriculum`. Les leçons/exercices de ce concept utilisent déjà `super(...)` pour
+  chaîner les constructeurs (voir `Ex01_ChaineDHeritage`) ; seul un commentaire minimal au
+  site d'appel en signale le rôle, sans en détailler la mécanique.

@@ -19,6 +19,9 @@ class Exo02_ListeProduits {
         int poidsGrammes;
 
         ProduitPhysique(String nom, double prix, int poidsGrammes) {
+            // super(nom, prix) appelle le constructeur de Produit — nécessaire ici car
+            // Produit n'a pas de constructeur sans argument. Détail du mot-clé super :
+            // concept séparé, à venir.
             super(nom, prix);
             this.poidsGrammes = poidsGrammes;
         }

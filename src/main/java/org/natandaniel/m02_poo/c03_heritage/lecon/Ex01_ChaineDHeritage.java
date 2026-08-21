@@ -24,6 +24,9 @@ class Ex01_ChaineDHeritage {
         int volumeCm3;
 
         ProduitPhysique(String nom, double prix, int poidsGrammes, int volumeCm3) {
+            // super(nom, prix) appelle le constructeur de Produit — nécessaire ici car
+            // Produit n'a pas de constructeur sans argument. Détail du mot-clé super :
+            // concept séparé, à venir.
             super(nom, prix);
             this.poidsGrammes = poidsGrammes;
             this.volumeCm3 = volumeCm3;
@@ -38,6 +41,7 @@ class Ex01_ChaineDHeritage {
 
         ProduitPhysiquePerissable(String nom, double prix, int poidsGrammes,
                                    int volumeCm3, String datePeremption) {
+            // Même principe : appelle ici le constructeur de ProduitPhysique.
             super(nom, prix, poidsGrammes, volumeCm3);
             this.datePeremption = datePeremption;
         }

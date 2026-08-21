@@ -18,6 +18,9 @@ class Exo01_Produit {
         int volumeCm3;
 
         ProduitPhysique(String nom, double prix, int poidsGrammes, int volumeCm3) {
+            // super(nom, prix) appelle le constructeur de Produit — nécessaire ici car
+            // Produit n'a pas de constructeur sans argument. Détail du mot-clé super :
+            // concept séparé, à venir.
             super(nom, prix);
             this.poidsGrammes = poidsGrammes;
             this.volumeCm3 = volumeCm3;

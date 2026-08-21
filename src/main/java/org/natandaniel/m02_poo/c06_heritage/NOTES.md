@@ -1,6 +1,6 @@
 # Héritage
 
-> Module `m02_poo / c03_heritage`
+> Module `m02_poo / c06_heritage`
 > Leçons : `Ex01_ChaineDHeritage`, `Ex02_HeritageSimple`, `Ex03_RestrictionsExtends`
 > Exercices : `Exo01_Produit`, `Exo02_ListeProduits`
 

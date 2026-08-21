@@ -1,6 +1,6 @@
 # Polymorphisme
 
-> Module `m02_poo / c04_polymorphisme`
+> Module `m02_poo / c07_polymorphisme`
 > Leçons : `Ex01_RedefinitionMethode`, `Ex02_MasquageVsRedefinition`, `Ex03_PolymorphismeUtilisation`
 > Exercices : `Exo01_CatalogueMixte`, `Exo02_RemiseEtMasquage`
 

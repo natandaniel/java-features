@@ -52,6 +52,7 @@ Ordre pensé en **quatre blocs** pour respecter les prérequis (chaque concept n
 | c05 | encapsulation | champs privés/accesseurs, invariants, modificateurs d'accès | ✅ |
 | c06 | heritage | `extends`, superclasse implicite `Object`, transitivité, restrictions | ✅ |
 | c07 | polymorphisme | redéfinition (override), retour covariant, masquage (champs/`static`), liaison dynamique | ✅ |
+| c08 | mot_cle_super | `super(...)` (invocation), `super.champ`/`super.methode()` (accès masqué/redéfini), ordre d'exécution | ✅ |
 
 **Note d'organisation** — `classes_objets`, `constructeurs`, `mot_cle_this` et
 `membres_statiques` formaient à l'origine un seul concept fusionné ; ils ont été scindés en
@@ -59,9 +60,10 @@ quatre (2026-08-21) pour correspondre à la granularité des leçons `ocp-curric
 (`classes-objets`, `constructeurs`, `mot-cle-this`, `membres-statique-vs-instance`, domaine
 `I.B`). `classes_objets` et `encapsulation` précèdent `heritage` car ce sont ses prérequis
 directs (héritage suppose une classe déjà définie, avec un état à protéger). `polymorphisme`
-s'appuie directement sur `heritage`. Interfaces, énumérations, records, et le mot-clé `super`
-(accès explicite à un membre masqué/redéfini) restent à ajouter en concepts suivants du
-module.
+s'appuie directement sur `heritage`. `mot_cle_super` (2026-08-21) s'appuie sur les quatre
+(constructeurs, `this`, héritage, polymorphisme) — c'est le point que `heritage` et
+`polymorphisme` différaient tous deux explicitement. Interfaces, énumérations et records
+restent à ajouter en concepts suivants du module.
 
 ### Modules à venir (ordre indicatif)
 

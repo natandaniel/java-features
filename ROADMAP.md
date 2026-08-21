@@ -100,7 +100,7 @@ classés en ordre de prérequis :**
 
 | Ordre | Concept | Contenu | Statut |
 |-------|---------|---------|--------|
-| c10 | methodes_fabriques_statiques | méthodes fabriques statiques (`of`, `valueOf`...), vs constructeur public | ⬜ |
+| c10 | methodes_fabriques_statiques | méthodes fabriques statiques (`of`, `valueOf`...), vs constructeur public | ✅ |
 | c11 | blocs_initialisation | blocs d'initialisation d'instance et statiques, ordre avec constructeurs | ⬜ |
 | c12 | final_classe_methode | `final` sur une classe (non extensible) ou une méthode (non redéfinissable) | ⬜ |
 | c13 | classes_immuables | champs `final`, pas de mutateurs, copie défensive — s'appuie sur c05 + c12 | ⬜ |

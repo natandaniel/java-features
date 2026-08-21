@@ -1,52 +1,40 @@
 # Classes et objets
 
 > Module `m02_poo / c01_classes_objets`
-> Leçons : `Ex01_DefinirUneClasse`, `Ex02_Constructeurs`, `Ex03_This`, `Ex04_MethodesEtChampsStatiques`
-> Exercices : `Exo01_Point`, `Exo02_Rectangle`
+> Leçon : `Ex01_DefinirUneClasse`
+> Exercices : `Exo01_Etudiant`
 
-Premier concept du module POO : le vocabulaire et la mécanique de base pour définir une
-classe, l'instancier, l'initialiser via un constructeur, et distinguer ce qui appartient à
-chaque instance de ce qui est partagé par la classe entière.
+Premier concept du module POO : le vocabulaire de base pour définir une classe et
+l'instancier. **Hors scope ici** : constructeur explicite (`c02_constructeurs`), `this`
+(`c03_mot_cle_this`), membres `static` (`c04_membres_statiques`) — chacun devient un concept à
+part, dans cet ordre, une fois la notion de classe/objet posée.
 
 ---
 
-## Classe vs objet vs instance
+## Classe vs objet vs instance (JLS §8.1, §8.3)
 
 Une **classe** est un modèle : elle décrit quels champs (état) et quelles méthodes
 (comportement) auront les objets construits à partir d'elle. Un **objet** (ou **instance**)
 est une réalisation concrète de ce modèle, créée avec `new`. Deux instances de la même classe
 ont chacune leur propre copie des champs d'instance : modifier l'une ne modifie pas l'autre.
 
-## Constructeur
+Sans constructeur explicite, `new Classe()` invoque le constructeur implicite fourni par le
+compilateur (JLS §8.8.9 — nuance différée à `c02_constructeurs`) : l'objet existe avec les
+valeurs par défaut de ses champs, prêtes à être affectées directement.
 
-Le constructeur initialise un objet à sa création (`new Classe(...)`). Il porte le même nom
-que la classe et n'a pas de type de retour.
+---
 
-- Si aucun constructeur n'est écrit, le compilateur en fournit un **implicite**, sans
-  argument, qui ne fait rien de plus qu'appeler le constructeur de la superclasse.
-- Dès qu'un constructeur explicite est écrit, ce constructeur par défaut **disparaît** —
-  `new Classe()` ne compile plus, sauf à écrire soi-même un constructeur sans argument.
-- Une classe peut avoir **plusieurs constructeurs** (surcharge), tant que leurs listes de
-  paramètres diffèrent.
+## Pistes d'exercices (Lesson Exercises)
 
-## `this`
+- **Rappel/compréhension** — deux instances de la même classe, champs modifiés séparément :
+  prédire l'état de chaque objet après une séquence d'affectations. Teste directement « chaque
+  objet a sa propre copie des champs », pas de la syntaxe.
+- **Application** — écrire une petite classe à partir d'un énoncé (champs publics, méthodes
+  d'instance qui les combinent), sans constructeur explicite. Transfert direct de
+  `Ex01_DefinirUneClasse`.
 
-`this` désigne l'objet courant, à l'intérieur d'une méthode ou d'un constructeur.
+## Pistes d'approfondissement (DeepDive)
 
-- **Désambiguïser** : quand un paramètre porte le même nom qu'un champ, `this.champ` désigne
-  le champ, `champ` seul désigne le paramètre (le paramètre *masque* le champ).
-- **Chaîner les constructeurs** : `this(...)` appelle un autre constructeur de la **même**
-  classe, pour éviter de dupliquer la logique d'initialisation. Doit être la **première**
-  instruction du constructeur.
-
-## `static` : membres de classe vs membres d'instance
-
-Un membre `static` appartient à la **classe**, pas à chaque instance : un seul exemplaire est
-partagé par tous les objets, et il existe déjà avant qu'aucune instance ne soit créée.
-
-- **Champ static** — une seule valeur, vue et modifiée par toutes les instances (ex. un
-  compteur du nombre d'objets créés).
-- **Méthode static** — n'a pas de `this` implicite, ne peut donc accéder qu'aux membres
-  static ; on l'appelle via le nom de la classe (`Classe.methode()`), pas via une instance.
-- À l'inverse, un membre d'**instance** (sans `static`) existe une fois par objet et a besoin
-  d'une instance pour être utilisé.
+- Lien avec le modèle mémoire (`c09_modele_memoire` de `m01_fondamentaux`) : ce qui se passe
+  concrètement sur le tas à chaque `new`. Optionnel — pont vers un concept déjà acquis, pas
+  nécessaire pour comprendre `classes_objets` lui-même.

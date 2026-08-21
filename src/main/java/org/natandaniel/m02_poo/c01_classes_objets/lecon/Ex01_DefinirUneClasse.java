@@ -1,7 +1,7 @@
 package org.natandaniel.m02_poo.c01_classes_objets.lecon;
 
 /**
- * Leçon 1/4 — définir une classe : champs et méthodes d'instance.
+ * Définir une classe : champs et méthodes d'instance.
  */
 class Ex01_DefinirUneClasse {
 

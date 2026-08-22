@@ -80,9 +80,11 @@ une liste).
 
 ## Hors scope (concepts suivants)
 
-- **Méthodes `default`/`static`/`private` d'interface** (Java 8+, JLS §9.4) — une interface
-  *peut* porter du code partagé depuis Java 8, ce qui nuance le tableau ci-dessus. Différé à
-  `c16_methodes_par_defaut` (résolution de conflit incluse).
+- **Méthodes `default` d'interface** (Java 8+, JLS §9.4) — une interface *peut* porter du code
+  partagé depuis Java 8, ce qui nuance le tableau ci-dessus. Différé à `c16_methodes_par_defaut`
+  (résolution de conflit incluse). **Méthodes `static`/`private` d'interface** (même section
+  JLS §9.4) : périmètre tranché le 2026-08-22 — hors scope de `c16` (leçon `ocp-curriculum`
+  ciblée centrée sur `default` uniquement), différé à `c25_methodes_statiques_et_privees_interface`.
 - **Une classe qui implémente plusieurs interfaces à la fois** — démontré ici seulement en
   théorie (`Ex04`) ; le code (résolution des méthodes partagées entre superinterfaces) est
   différé à `c17_heritage_multiple_types`.

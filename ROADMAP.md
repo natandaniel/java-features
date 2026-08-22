@@ -106,7 +106,7 @@ classés en ordre de prérequis :**
 | c13 | classes_immuables | champs `final`, pas de mutateurs, copie défensive — s'appuie sur c05 + c12 | ✅ |
 | c14 | clonage | `Cloneable`, `Object.clone()`, copie superficielle vs profonde, pièges | ✅ |
 | c15 | interfaces_classes_abstraites | `interface` vs classe abstraite, méthodes abstraites, contrats | ✅ |
-| c16 | methodes_par_defaut | méthodes `default` d'interface (Java 8), résolution de conflit | ⬜ |
+| c16 | methodes_par_defaut | méthodes `default` d'interface (Java 8), résolution de conflit | ✅ |
 | c17 | heritage_multiple_types | une classe implémente plusieurs interfaces — s'appuie sur c15 | ⬜ |
 | c18 | interface_comparable | `Comparable<T>` — **⚠ dépend des génériques** (`m05_generiques`, thème F, plus loin dans l'ordre des modules) ; à traiter en dernier dans le module, ou avec une introduction minimale aux génériques différée depuis `m05` | ⬜ |
 | c19 | classes_scellees | `sealed`/`permits`/`non-sealed` — rattachée ici (pas à un module « modernité ») suite à l'audit `THEMES_JAVA.md` du 2026-08-09 qui l'a déplacée de I.L vers I.B | ⬜ |
@@ -115,6 +115,7 @@ classés en ordre de prérequis :**
 | c22 | classes_imbriquees_statiques | classes imbriquées statiques | ⬜ |
 | c23 | classes_internes | classes internes (non statiques), classes locales/anonymes — s'appuie sur c22 | ⬜ |
 | c24 | composition_vs_heritage | synthèse — favoriser la composition, limites de l'héritage | ⬜ |
+| c25 | methodes_statiques_et_privees_interface | méthodes `static`/`private` d'interface (Java 8/9) — gap identifié le 2026-08-22 lors de `c16` : `static`/`private` d'interface partagent la même section JLS §9.4 que `default` mais n'ont pas de concept dédié ; pas de leçon `ocp-curriculum` connue à ce jour | ⬜ |
 
 **Note d'organisation (héritage historique, inchangée)** — `classes_objets`, `constructeurs`,
 `mot_cle_this` et `membres_statiques` formaient à l'origine un seul concept fusionné ; ils ont été

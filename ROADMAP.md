@@ -105,7 +105,7 @@ classés en ordre de prérequis :**
 | c12 | final_classe_methode | `final` sur une classe (non extensible) ou une méthode (non redéfinissable) | ✅ |
 | c13 | classes_immuables | champs `final`, pas de mutateurs, copie défensive — s'appuie sur c05 + c12 | ✅ |
 | c14 | clonage | `Cloneable`, `Object.clone()`, copie superficielle vs profonde, pièges | ✅ |
-| c15 | interfaces_classes_abstraites | `interface` vs classe abstraite, méthodes abstraites, contrats | ⬜ |
+| c15 | interfaces_classes_abstraites | `interface` vs classe abstraite, méthodes abstraites, contrats | ✅ |
 | c16 | methodes_par_defaut | méthodes `default` d'interface (Java 8), résolution de conflit | ⬜ |
 | c17 | heritage_multiple_types | une classe implémente plusieurs interfaces — s'appuie sur c15 | ⬜ |
 | c18 | interface_comparable | `Comparable<T>` — **⚠ dépend des génériques** (`m05_generiques`, thème F, plus loin dans l'ordre des modules) ; à traiter en dernier dans le module, ou avec une introduction minimale aux génériques différée depuis `m05` | ⬜ |

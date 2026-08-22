@@ -110,7 +110,7 @@ classés en ordre de prérequis :**
 | c17 | heritage_multiple_types | une classe implémente plusieurs interfaces — s'appuie sur c15 | ✅ |
 | c18 | interface_comparable | `Comparable<T>` — **⚠ dépend des génériques** (`m05_generiques`, thème F, plus loin dans l'ordre des modules) ; à traiter en dernier dans le module, ou avec une introduction minimale aux génériques différée depuis `m05` | ⬜ |
 | c19 | classes_scellees | `sealed`/`permits`/`non-sealed` — rattachée ici (pas à un module « modernité ») suite à l'audit `THEMES_JAVA.md` du 2026-08-09 qui l'a déplacée de I.L vers I.B | ✅ |
-| c20 | enumerations | `enum`, corps de constante, implémentation d'interface — s'appuie sur c15 | ⬜ |
+| c20 | enumerations | `enum`, corps de constante, implémentation d'interface — s'appuie sur c15 | ✅ |
 | c21 | records | `record`, constructeur canonique, composants — s'appuie sur c13 (immutabilité) et c15 | ⬜ |
 | c22 | classes_imbriquees_statiques | classes imbriquées statiques | ⬜ |
 | c23 | classes_internes | classes internes (non statiques), classes locales/anonymes — s'appuie sur c22 | ⬜ |
